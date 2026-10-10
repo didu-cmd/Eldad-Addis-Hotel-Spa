@@ -1,0 +1,1200 @@
+import { 
+  RoomCategory, 
+  IndividualRoom, 
+  Reservation, 
+  MenuItem, 
+  GalleryItem, 
+  Attraction, 
+  HotelPolicy, 
+  HotelSettings 
+} from '../types/hotel';
+
+export const HOTEL_LOGO_URL = 'https://cdn.corenexis.com/f/AbO2dRQhXIs.png';
+
+// High-fidelity generated imagery customized for Eldad Addis
+export const ASSET_IMAGES = {
+  hero: '/src/assets/images/hero_luxury_eldad_1791047480389.jpg',
+  presidentialSuite: '/src/assets/images/presidential_suite_1790946206263.jpg',
+  deluxeRoom: '/src/assets/images/room_deluxe_king_1791045786112.jpg',
+  twinRoom: '/src/assets/images/room_twin_single_1791045799689.jpg',
+  standardRoom: '/src/assets/images/room_standard_queen_1791045810966.jpg',
+  wellnessSpa: '/src/assets/images/wellness_spa_sauna_1790946220411.jpg',
+  spaSanctuary: '/src/assets/images/spa_sanctuary_thermal_1791047495137.jpg',
+  cedarSauna: '/src/assets/images/cedar_sauna_suite_1791047508486.jpg',
+  fitnessGym: '/src/assets/images/fitness_gym_state_art_1791047521579.jpg',
+  restaurant: '/src/assets/images/restaurant_dining_1790946231329.jpg',
+  breakfastBuffet: '/src/assets/images/gallery_breakfast_buffet_1791048328409.jpg',
+  coffeeCeremony: '/src/assets/images/gallery_coffee_ceremony_1791048342309.jpg',
+  spaTreatment: '/src/assets/images/gallery_spa_treatment_1791048354364.jpg',
+  steamRoom: '/src/assets/images/gallery_steam_room_1791048367786.jpg',
+  gymWeights: '/src/assets/images/gallery_gym_weights_1791048383216.jpg',
+  dergMonument: '/src/assets/images/gallery_derg_monument_1791048410121.jpg',
+  addisLandmark: '/src/assets/images/gallery_addis_landmark_1791048395970.jpg',
+  addisAbabaMuseum: '/src/assets/images/addis_ababa_museum_1791174972852.jpg',
+  unConferenceCentre: '/src/assets/images/un_conference_centre_1791174983146.jpg',
+  nationalArchives: '/src/assets/images/national_library_ethiopia_1791174993113.jpg',
+  ydnekachewStadium: '/src/assets/images/ydnekachew_tesema_stadium_1791175003551.jpg',
+  tewodrosSquare: '/src/assets/images/tewodros_square_monument_1791175012676.jpg',
+  laGareStation: '/src/assets/images/la_gare_train_station_1791175022164.jpg',
+};
+
+export const INITIAL_ROOM_CATEGORIES: RoomCategory[] = [
+  {
+    id: 'cat-presidential',
+    name: 'Presidential Suite',
+    basePrice: 10800,
+    inventoryCount: 5,
+    maxOccupancy: 3,
+    bedConfig: 'King Bed + Private Living Salon',
+    sizeM2: 74,
+    description: 'Expansive private suite with separate lounge salon, panoramic vistas of Addis Ababa, bespoke dark timber finishes, luxury marble en-suite bathroom, and dedicated hospitality assistance.',
+    coverImage: ASSET_IMAGES.presidentialSuite,
+    galleryImages: [
+      ASSET_IMAGES.presidentialSuite,
+      ASSET_IMAGES.hero,
+      ASSET_IMAGES.wellnessSpa
+    ],
+    amenities: [
+      'Private marble bathroom & deep soaking tub',
+      'Flat-screen 65" 4K Smart TV',
+      'Artisanal Ethiopian organic toiletries',
+      'High-velocity hairdryer',
+      'Complimentary high-speed Wi-Fi',
+      'In-room espresso machine & tea bar',
+      'Executive work desk',
+      'Laptop-compatible electronic safe',
+      'Complimentary spa & cedar sauna access',
+      'Non-smoking environment'
+    ]
+  },
+  {
+    id: 'cat-deluxe',
+    name: 'Deluxe Room',
+    basePrice: 8950,
+    inventoryCount: 5,
+    maxOccupancy: 2,
+    bedConfig: 'Premium King Bed',
+    sizeM2: 46,
+    description: 'Thoughtfully curated luxury room featuring high ceilings, warm natural textures, acoustic glazing, and an elegant seating enclave for effortless relaxation after exploring Addis Ababa.',
+    coverImage: ASSET_IMAGES.deluxeRoom,
+    galleryImages: [
+      ASSET_IMAGES.deluxeRoom,
+      ASSET_IMAGES.restaurant
+    ],
+    amenities: [
+      'Private en-suite rain shower bathroom',
+      'Flat-screen 55" Smart TV',
+      'Botanical bath amenities',
+      'Hairdryer & plush bathrobes',
+      'Complimentary high-speed Wi-Fi',
+      'Mini refrigerator & bottled spring water',
+      'Dedicated work desk',
+      'In-room electronic safe',
+      'Complimentary spa & cedar sauna access',
+      'Non-smoking environment'
+    ]
+  },
+  {
+    id: 'cat-twin',
+    name: 'Twin Room',
+    basePrice: 6790,
+    inventoryCount: 6,
+    maxOccupancy: 2,
+    bedConfig: 'Two Twin Single Beds',
+    sizeM2: 38,
+    description: 'Generously proportioned room with twin bespoke single beds, designed for traveling colleagues or companions seeking calm comfort and uncompromised privacy.',
+    coverImage: ASSET_IMAGES.twinRoom,
+    galleryImages: [
+      ASSET_IMAGES.twinRoom,
+      ASSET_IMAGES.restaurant
+    ],
+    amenities: [
+      'Private en-suite bathroom with walk-in shower',
+      'Flat-screen 50" Smart TV',
+      'Complimentary luxury toiletries',
+      'Hairdryer',
+      'Complimentary high-speed Wi-Fi',
+      'Comfortable writing desk & reading chair',
+      'Individual climate control',
+      'In-room safe',
+      'Complimentary spa & cedar sauna access',
+      'Non-smoking environment'
+    ]
+  },
+  {
+    id: 'cat-standard',
+    name: 'Standard Room',
+    basePrice: 5550,
+    inventoryCount: 9,
+    maxOccupancy: 2,
+    bedConfig: 'Queen Bed',
+    sizeM2: 32,
+    description: 'Essential contemporary luxury with immaculate detailing, tranquil color palettes, restorative bedding, and all amenities required for a seamless business or leisure stay.',
+    coverImage: ASSET_IMAGES.standardRoom,
+    galleryImages: [
+      ASSET_IMAGES.standardRoom,
+      ASSET_IMAGES.hero
+    ],
+    amenities: [
+      'Private modern bathroom with rain shower',
+      'Flat-screen Smart TV',
+      'Essential toiletries kit',
+      'Hairdryer',
+      'Complimentary high-speed Wi-Fi',
+      'Compact workstation',
+      'In-room safe',
+      'Complimentary spa & cedar sauna access',
+      'Non-smoking environment'
+    ]
+  }
+];
+
+// Exactly 25 rooms with their operational status
+export const INITIAL_ROOMS: IndividualRoom[] = [
+  // 5 Presidential Suites (501 - 505)
+  { roomNumber: '501', category: 'Presidential Suite', floor: 5, status: 'Occupied' },
+  { roomNumber: '502', category: 'Presidential Suite', floor: 5, status: 'Available' },
+  { roomNumber: '503', category: 'Presidential Suite', floor: 5, status: 'Reserved' },
+  { roomNumber: '504', category: 'Presidential Suite', floor: 5, status: 'Available' },
+  { roomNumber: '505', category: 'Presidential Suite', floor: 5, status: 'Available' },
+
+  // 5 Deluxe Rooms (401 - 405)
+  { roomNumber: '401', category: 'Deluxe Room', floor: 4, status: 'Available' },
+  { roomNumber: '402', category: 'Deluxe Room', floor: 4, status: 'Occupied' },
+  { roomNumber: '403', category: 'Deluxe Room', floor: 4, status: 'Available' },
+  { roomNumber: '404', category: 'Deluxe Room', floor: 4, status: 'Maintenance', notes: 'Scheduled seasonal fixture refinement' },
+  { roomNumber: '405', category: 'Deluxe Room', floor: 4, status: 'Available' },
+
+  // 6 Twin Rooms (301 - 306)
+  { roomNumber: '301', category: 'Twin Room', floor: 3, status: 'Available' },
+  { roomNumber: '302', category: 'Twin Room', floor: 3, status: 'Occupied' },
+  { roomNumber: '303', category: 'Twin Room', floor: 3, status: 'Available' },
+  { roomNumber: '304', category: 'Twin Room', floor: 3, status: 'Available' },
+  { roomNumber: '305', category: 'Twin Room', floor: 3, status: 'Available' },
+  { roomNumber: '306', category: 'Twin Room', floor: 3, status: 'Available' },
+
+  // 9 Standard Rooms (201 - 209)
+  { roomNumber: '201', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '202', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '203', category: 'Standard Room', floor: 2, status: 'Occupied' },
+  { roomNumber: '204', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '205', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '206', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '207', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '208', category: 'Standard Room', floor: 2, status: 'Available' },
+  { roomNumber: '209', category: 'Standard Room', floor: 2, status: 'Available' },
+];
+
+export const INITIAL_SETTINGS: HotelSettings = {
+  hotelName: 'ELDAD ADDIS HOTEL & SPA',
+  location: 'Addis Ababa, Ethiopia',
+  checkInTime: '12:00 PM',
+  checkOutTime: '12:00 PM',
+  contactEmail: 'contact@eldadaddis.et',
+  contactPhone: '+251 11 000 0000',
+  reservationsEmail: 'reservations@eldadaddis.et',
+  whatsAppNumber: '+251911002233',
+  whatsAppDisplay: '+251 91 100 2233',
+  addressLine: 'Churchill Avenue, Kirkos Sub-City, Addis Ababa, Ethiopia',
+  coordinates: '9°01\'15.4"N 38°45\'22.1"E',
+  airportTransferPrice: 900, // ETB per transfer
+  walkInSpaPrice: 1600, // ETB for walk-in visitors
+  transferEnabled: true,
+  totalRooms: 25,
+  currency: 'ETB',
+  diningHours: '8:00 AM – 10:00 PM Daily',
+  spaHours: '6:00 AM – 10:00 PM Daily',
+  gymHours: '24/7 Keycard Access',
+  telebirrNumber: '0911002233',
+  cbeAccount: '1000482910482',
+  boaAccount: '839102948102',
+  awashAccount: '01304910294800',
+  dashenAccount: '51920394819211',
+};
+
+// Official Ethiopian Banking and Mobile Money Accounts for Online Payment
+export const HOTEL_WHATSAPP_NUMBER = '+251911002233';
+export const HOTEL_WHATSAPP_DISPLAY = '+251 91 100 2233';
+
+export interface BankAccountInfo {
+  id: string;
+  bankName: string;
+  accountNumber: string;
+  accountName: string;
+  accountType: string;
+  logoColor: string;
+  badgeText: string;
+}
+
+export const HOTEL_BANK_ACCOUNTS: BankAccountInfo[] = [
+  {
+    id: 'telebirr',
+    bankName: 'Telebirr (Ethio Telecom)',
+    accountNumber: '0911002233',
+    accountName: 'ELDAD ADDIS HOTEL & SPA',
+    accountType: 'Merchant / Mobile Account',
+    logoColor: '#0072CE',
+    badgeText: 'Instant Transfer',
+  },
+  {
+    id: 'cbe',
+    bankName: 'Commercial Bank of Ethiopia (CBE)',
+    accountNumber: '1000482910482',
+    accountName: 'ELDAD ADDIS HOTEL AND SPA PLC',
+    accountType: 'Commercial Checking',
+    logoColor: '#8E24AA',
+    badgeText: 'CBE Birr / Internet Banking',
+  },
+  {
+    id: 'boa',
+    bankName: 'Bank of Abyssinia (BOA)',
+    accountNumber: '839102948102',
+    accountName: 'ELDAD ADDIS HOTEL AND SPA PLC',
+    accountType: 'Corporate Account',
+    logoColor: '#D97706',
+    badgeText: 'Apollo / Mobile App',
+  },
+  {
+    id: 'awash',
+    bankName: 'Awash Bank',
+    accountNumber: '01304910294800',
+    accountName: 'ELDAD ADDIS HOTEL AND SPA',
+    accountType: 'Corporate Account',
+    logoColor: '#059669',
+    badgeText: 'Awash Birr / App',
+  },
+  {
+    id: 'dashen',
+    bankName: 'Dashen Bank',
+    accountNumber: '51920394819211',
+    accountName: 'ELDAD ADDIS HOTEL AND SPA',
+    accountType: 'Corporate Account',
+    logoColor: '#1E3A8A',
+    badgeText: 'Amole / Mobile Banking',
+  },
+];
+
+export const INITIAL_RESERVATIONS: Reservation[] = [
+  {
+    id: 'res-001',
+    reference: 'EAH-94812',
+    guestName: 'Dr. Almaz Bekele',
+    email: 'almaz.b@example.org',
+    phone: '+251 91 123 4567',
+    fanFinId: '102938475612',
+    roomNumber: '501',
+    roomType: 'Presidential Suite',
+    checkIn: '2026-10-01',
+    checkOut: '2026-10-05',
+    nights: 4,
+    guests: 2,
+    specialRequests: 'High floor preference and late arrival notice.',
+    airportTransfer: 'both',
+    flightPickupDetails: 'ET 602 from Dubai arriving 13:45',
+    paymentMethod: 'front_desk',
+    paymentStatus: 'Authorized',
+    reservationStatus: 'Checked In',
+    nightlyRate: 10800,
+    roomTotal: 43200,
+    transferTotal: 1800,
+    totalAmount: 45000,
+    internalNotes: 'VIP guest attending international health conference.',
+    createdAt: '2026-09-24T10:15:00Z',
+    updatedAt: '2026-10-01T12:30:00Z',
+  },
+  {
+    id: 'res-002',
+    reference: 'EAH-94813',
+    guestName: 'Marcus Lindqvist',
+    email: 'marcus.l@nordic-travel.com',
+    phone: '+46 70 892 1102',
+    fanFinId: '203948576192',
+    roomNumber: '402',
+    roomType: 'Deluxe Room',
+    checkIn: '2026-10-02',
+    checkOut: '2026-10-06',
+    nights: 4,
+    guests: 1,
+    specialRequests: 'Quiet room away from elevator.',
+    airportTransfer: 'arrival',
+    flightPickupDetails: 'LH 598 arriving Bole International',
+    paymentMethod: 'front_desk',
+    paymentStatus: 'Pending',
+    reservationStatus: 'Checked In',
+    nightlyRate: 8950,
+    roomTotal: 35800,
+    transferTotal: 900,
+    totalAmount: 36700,
+    internalNotes: 'Front desk payment confirmed upon arrival.',
+    createdAt: '2026-09-27T08:00:00Z',
+    updatedAt: '2026-10-02T12:00:00Z',
+  },
+  {
+    id: 'res-003',
+    reference: 'EAH-94814',
+    guestName: 'Tewodros Yohannes',
+    email: 'tewodros.y@telecom.et',
+    phone: '+251 92 884 1029',
+    fanFinId: '304958671829',
+    roomNumber: '302',
+    roomType: 'Twin Room',
+    checkIn: '2026-10-02',
+    checkOut: '2026-10-04',
+    nights: 2,
+    guests: 2,
+    airportTransfer: 'none',
+    paymentMethod: 'online',
+    paymentStatus: 'Authorized',
+    reservationStatus: 'Checked In',
+    nightlyRate: 6790,
+    roomTotal: 13580,
+    transferTotal: 0,
+    totalAmount: 13580,
+    internalNotes: 'Business delegation stay.',
+    createdAt: '2026-09-29T14:20:00Z',
+    updatedAt: '2026-10-02T12:15:00Z',
+  },
+  {
+    id: 'res-004',
+    reference: 'EAH-94815',
+    guestName: 'Elena Rostova',
+    email: 'elena.rostova@un-mission.org',
+    phone: '+41 79 555 4912',
+    fanFinId: '405968712390',
+    roomNumber: '503',
+    roomType: 'Presidential Suite',
+    checkIn: '2026-10-03',
+    checkOut: '2026-10-07',
+    nights: 4,
+    guests: 2,
+    specialRequests: 'Airport transfer required from Bole Terminal 2.',
+    airportTransfer: 'both',
+    flightPickupDetails: 'TK 676 arriving 05:25 morning',
+    paymentMethod: 'front_desk',
+    paymentStatus: 'Pending',
+    reservationStatus: 'Confirmed',
+    nightlyRate: 10800,
+    roomTotal: 43200,
+    transferTotal: 1800,
+    totalAmount: 45000,
+    internalNotes: 'Arriving tomorrow morning.',
+    createdAt: '2026-09-30T16:45:00Z',
+    updatedAt: '2026-09-30T16:45:00Z',
+  }
+];
+
+export const INITIAL_MENU_ITEMS: MenuItem[] = [
+  // --- SNACKS & SANDWICHES ---
+  {
+    id: 'snack-1',
+    category: 'Snacks',
+    name: 'Croque Monsieur',
+    description: 'The iconic Parisian grilled sandwich — buttery brioche layered with cured ham, silky béchamel and nutty melted Gruyère, gratinéed to golden perfection.',
+    priceETB: 700,
+    imageUrl: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    prepTime: '12 min',
+    calories: '620 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Parisian Classic', 'Gratinéed'],
+    ingredients: ['Artisan Brioche', 'Cured Ham', 'Béchamel Sauce', 'Gruyère Cheese', 'Nutmeg', 'Dijon Mustard']
+  },
+  {
+    id: 'snack-2',
+    category: 'Snacks',
+    name: 'Ham & Cheese Sandwich',
+    description: 'A classic French crusty baguette filled with thin tender slices of cured ham and aged Gruyère cheese, brightened with artisanal salted butter and coarse Dijon.',
+    priceETB: 700,
+    imageUrl: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80',
+    prepTime: '8 min',
+    calories: '540 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['French Baguette', 'Cold Cut'],
+    ingredients: ['Stone-baked Baguette', 'Smoked Cured Ham', 'Aged Emmental', 'Dijon Mustard', 'Cornichons']
+  },
+  {
+    id: 'snack-3',
+    category: 'Snacks',
+    name: 'Croque Madam',
+    description: 'The Croque Monsieur’s elegant companion — crowned with a farm-fresh sunny-side egg whose velvety golden yolk enriches every decadent melted bite.',
+    priceETB: 750,
+    imageUrl: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80',
+    prepTime: '14 min',
+    calories: '720 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Signature Breakfast'],
+    ingredients: ['Toasted Brioche', 'Sunny-Side Farm Egg', 'Cured Ham', 'Mornay Béchamel', 'Aged Gruyère', 'Fresh Chives']
+  },
+  {
+    id: 'snack-4',
+    category: 'Snacks',
+    name: 'Smoked Salmon Brioche Toast',
+    description: 'Norwegian cold-smoked salmon on toasted brioche with whipped herbed cream cheese, pickled shallots, crispy capers, and fresh dill sprigs.',
+    priceETB: 850,
+    imageUrl: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '480 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['High Protein', 'Omega 3'],
+    ingredients: ['Atlantic Smoked Salmon', 'Brioche Toast', 'Cream Cheese', 'Capers', 'Lemon Zest', 'Organic Dill']
+  },
+  {
+    id: 'snack-5',
+    category: 'Snacks',
+    name: 'Truffle Mushroom Grilled Cheese',
+    description: 'Crispy sourdough filled with sautéed wild forest mushrooms, black truffle butter, melted sharp white cheddar, and fontina cheese.',
+    priceETB: 680,
+    imageUrl: 'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '560 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Vegetarian', 'Truffle Infused'],
+    ingredients: ['Artisan Sourdough', 'Wild Porcini & Cremini', 'Black Truffle Oil', 'White Cheddar', 'Fontina']
+  },
+  {
+    id: 'snack-6',
+    category: 'Snacks',
+    name: 'Eldad Triple-Decker Club Sandwich',
+    description: 'Layers of roasted free-range chicken breast, crispy beef bacon, butterhead lettuce, vine ripe tomatoes, and garlic aioli on toasted multigrain.',
+    priceETB: 780,
+    imageUrl: 'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?auto=format&fit=crop&w=800&q=80',
+    prepTime: '12 min',
+    calories: '680 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Hearty Meal', 'House Classic'],
+    ingredients: ['Toasted Multigrain', 'Roast Chicken', 'Smoked Beef Bacon', 'Avocado', 'Vine Tomato', 'Garlic Aioli']
+  },
+
+  // --- SALADS & STARTERS ---
+  {
+    id: 'salad-1',
+    category: 'Salads',
+    name: 'Classic Chicken Caesar Salad',
+    description: 'Crisp Romaine hearts tossed in house-made anchovy parmesan dressing with grilled herb-marinated chicken breast, garlic brioche croutons, and shaved Parmigiano-Reggiano.',
+    priceETB: 640,
+    imageUrl: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '420 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'High Protein'],
+    ingredients: ['Crisp Romaine', 'Grilled Chicken Breast', 'Aged Parmigiano', 'Garlic Croutons', 'Caesar Dressing']
+  },
+  {
+    id: 'salad-2',
+    category: 'Salads',
+    name: 'Mediterranean Burrata & Heirloom Tomato',
+    description: 'Creamy fresh Italian burrata pugliese paired with multi-color heirloom tomatoes, cold-pressed olive oil, aged balsamic glaze, and fresh purple basil.',
+    priceETB: 750,
+    imageUrl: 'https://images.unsplash.com/photo-1592417817098-8f3d69102553?auto=format&fit=crop&w=800&q=80',
+    prepTime: '6 min',
+    calories: '380 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Vegetarian', 'Fresh Daily'],
+    ingredients: ['Fresh Burrata Cheese', 'Heirloom Tomatoes', 'Extra Virgin Olive Oil', 'Balsamic Glaze', 'Fresh Basil']
+  },
+  {
+    id: 'salad-3',
+    category: 'Salads',
+    name: 'Eldad Organic Highland Garden Salad',
+    description: 'Tender baby greens from local highland farms with shaved radishes, English cucumber ribbons, toasted pumpkin seeds, and a zesty honey-lime vinaigrette.',
+    priceETB: 520,
+    imageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80',
+    prepTime: '7 min',
+    calories: '260 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Vegan', 'Gluten-Free', 'Organic'],
+    ingredients: ['Baby Greens', 'Avocado', 'Highland Honey Dressing', 'Pumpkin Seeds', 'Cherry Tomatoes']
+  },
+  {
+    id: 'salad-4',
+    category: 'Salads',
+    name: 'Citrus Quinoa & Avocado Power Bowl',
+    description: 'Organic rainbow quinoa, ripe Hass avocado, pink grapefruit segments, baby spinach, pomegranate pearls, and a toasted sesame ginger drizzle.',
+    priceETB: 580,
+    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+    prepTime: '8 min',
+    calories: '340 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Superfood', 'Vegan', 'Gluten-Free'],
+    ingredients: ['Rainbow Quinoa', 'Hass Avocado', 'Grapefruit', 'Pomegranate', 'Baby Spinach', 'Sesame Ginger Dressing']
+  },
+  {
+    id: 'salad-5',
+    category: 'Salads',
+    name: 'Crispy Calamari & Citrus Fritti',
+    description: 'Golden lightly battered tender squid rings served with lemon garlic aioli, charred lemon wedges, and fresh chili rings.',
+    priceETB: 720,
+    imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80',
+    prepTime: '11 min',
+    calories: '460 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Seafood', 'Crispy Starter'],
+    ingredients: ['Tender Squid', 'Seasoned Tempura Batter', 'Garlic Aioli', 'Charred Lemon', 'Red Chili']
+  },
+  {
+    id: 'salad-6',
+    category: 'Salads',
+    name: 'Roasted Butternut & Ginger Velouté',
+    description: 'Velvety smooth slow-roasted butternut squash soup infused with fresh ginger, coconut cream, and toasted pumpkin seed oil, served with warm baguette.',
+    priceETB: 480,
+    imageUrl: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80',
+    prepTime: '9 min',
+    calories: '290 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Vegetarian', 'Warm Starter'],
+    ingredients: ['Roasted Butternut Squash', 'Fresh Ginger', 'Coconut Cream', 'Pumpkin Seed Oil', 'Crusty Baguette']
+  },
+
+  // --- PASTRIES & BAKERY ---
+  {
+    id: 'pastry-1',
+    category: 'Pastries',
+    name: 'Artisanal French Butter Croissant',
+    description: 'Authentic 72-layer flaky French croissant made with pure Normandy butter, golden and shatteringly crisp on the outside with a cloud-soft honeycomb interior.',
+    priceETB: 280,
+    imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '310 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Freshly Baked Daily', 'French Recipe'],
+    ingredients: ['French Wheat Flour', 'Normandy Butter', 'Whole Milk', 'Sea Salt', 'Cane Sugar']
+  },
+  {
+    id: 'pastry-2',
+    category: 'Pastries',
+    name: 'Pain au Chocolat Pure Butter',
+    description: 'Flaky buttery laminated pastry enveloping two generous batons of rich 64% Valrhona dark chocolate, baked fresh every morning.',
+    priceETB: 320,
+    imageUrl: 'https://images.unsplash.com/photo-1530610476181-d83430b64dcd?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '360 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Valrhona Chocolate'],
+    ingredients: ['Laminated Butter Dough', '64% Valrhona Dark Chocolate', 'Egg Wash', 'Vanilla']
+  },
+  {
+    id: 'pastry-3',
+    category: 'Pastries',
+    name: 'Cardamom Sourdough Morning Bun',
+    description: 'Nordic-inspired laminated brioche rolled with freshly ground aromatic Ethiopian green cardamom, Ceylon cinnamon, and caramelized demerara sugar.',
+    priceETB: 290,
+    imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '330 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Aromatic Spice', 'Artisan Bakery'],
+    ingredients: ['Sourdough Brioche', 'Ethiopian Green Cardamom', 'Ceylon Cinnamon', 'Demerara Sugar']
+  },
+  {
+    id: 'pastry-4',
+    category: 'Pastries',
+    name: 'Fresh Forest Berry Danish',
+    description: 'Crisp square puff pastry filled with vanilla bean pastry cream and topped with fresh raspberries, blueberries, and glistening redcurrant glaze.',
+    priceETB: 340,
+    imageUrl: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '290 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Fresh Fruit', 'Vanilla Custard'],
+    ingredients: ['Danish Pastry', 'Madagascar Vanilla Custard', 'Fresh Blueberries', 'Raspberries', 'Apricot Glaze']
+  },
+  {
+    id: 'pastry-5',
+    category: 'Pastries',
+    name: 'Artisan Cinnamon Swirl Brioche',
+    description: 'Soft pillowy spiraled brioche rich with aromatic cinnamon butter and finished with a velvety cream cheese vanilla glaze.',
+    priceETB: 310,
+    imageUrl: 'https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=800&q=80',
+    prepTime: '6 min',
+    calories: '370 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Warm & Comforting', 'House Favorite'],
+    ingredients: ['Brioche Dough', 'Indonesian Cinnamon', 'Brown Butter', 'Cream Cheese Frosting']
+  },
+  {
+    id: 'pastry-6',
+    category: 'Pastries',
+    name: 'Chocolate Almond Babka Slice',
+    description: 'Braided rich yeast bread swirling with deep dark chocolate fudge, toasted crushed almonds, and a light orange blossom syrup wash.',
+    priceETB: 350,
+    imageUrl: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '410 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Decadent Slice', 'Roasted Nuts'],
+    ingredients: ['Braided Brioche', 'Dark Cocoa Ganache', 'Toasted Almonds', 'Orange Blossom Honey']
+  },
+
+  // --- ETHIOPIAN SELECTION ---
+  {
+    id: 'eth-1',
+    category: 'Ethiopian Selection',
+    name: 'Special Doro Wat & Fresh Injera',
+    description: 'Slow-simmered tender chicken drumstick and thigh in rich aromatic berbere and spiced butter sauce with organic boiled egg, served on fresh pure teff injera with Ayib cheese.',
+    priceETB: 850,
+    imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    prepTime: '15 min',
+    calories: '780 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'National Heritage', 'Signature'],
+    ingredients: ['Free-range Chicken', 'Authentic Berbere', 'Niter Kibbeh (Clarified Butter)', 'Organic Boiled Egg', 'Pure Teff Injera', 'Ayib Cottage Cheese']
+  },
+  {
+    id: 'eth-2',
+    category: 'Ethiopian Selection',
+    name: 'Prime Siga Tibs Sizzling Claypot',
+    description: 'Tender prime beef loin strips flash-sautéed with red shallots, jalapeño chili, garlic, and fresh mountain rosemary, served sizzling hot with spicy awaze dip.',
+    priceETB: 780,
+    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+    prepTime: '12 min',
+    calories: '690 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Sizzling Hot'],
+    ingredients: ['Prime Beef Loin', 'Highland Rosemary', 'Jalapeño', 'Garlic', 'Awaze Paste', 'Fresh Injera']
+  },
+  {
+    id: 'eth-3',
+    category: 'Ethiopian Selection',
+    name: 'Special Kitfo with Kocho & Gomen',
+    description: 'Lean minced prime beef warmed in fragrant spiced butter (niter kibbeh) and mitmita chili, served with traditional fermented enset kocho, seasoned collard greens, and Ayib.',
+    priceETB: 890,
+    imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+    prepTime: '12 min',
+    calories: '740 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Gourmet Specialty', 'High Protein'],
+    ingredients: ['Minced Beef Top Round', 'Mitmita Chili', 'Niter Kibbeh', 'Kocho Enset Bread', 'Gomen Greens', 'Fresh Ayib']
+  },
+  {
+    id: 'eth-4',
+    category: 'Ethiopian Selection',
+    name: 'Highland Lamb Alicha Wat',
+    description: 'Tender diced lamb braised gently with turmeric, sweet onions, ginger, and garlic into a mild golden stew, perfect for non-spicy palate lovers.',
+    priceETB: 820,
+    imageUrl: 'https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=800&q=80',
+    prepTime: '14 min',
+    calories: '710 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Mild & Aromatic', 'Tender Braise'],
+    ingredients: ['Highland Lamb', 'Turmeric', 'Braised Shallots', 'Ginger & Garlic', 'Niter Kibbeh', 'Teff Injera']
+  },
+  {
+    id: 'eth-5',
+    category: 'Ethiopian Selection',
+    name: 'Shiro Mitten in Hot Claypot',
+    description: 'Velvety spiced sun-dried chickpea flour stew simmered with garlic, shallots, and niter kibbeh in a traditional earthenware bowl, served bubbling with fresh injera.',
+    priceETB: 560,
+    imageUrl: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '480 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Vegetarian', 'Highland Comfort'],
+    ingredients: ['Sun-dried Chickpea Flour', 'Spiced Herbs', 'Caramelized Onions', 'Garlic', 'Pure Teff Injera']
+  },
+  {
+    id: 'eth-6',
+    category: 'Ethiopian Selection',
+    name: 'Royal Beyaynetu Vegan Platter',
+    description: 'A colorful grand feast of Misir Wat (red lentils), Kik Alicha (yellow split peas), Gomen (collards), Tikil Gomen (cabbage & potatoes), and beetroot salad on teff injera.',
+    priceETB: 620,
+    imageUrl: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '520 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['100% Vegan', 'Fasting Specialty', 'Gluten-Free Option'],
+    ingredients: ['Red Lentil Stew', 'Yellow Split Pea Stew', 'Braised Collards', 'Turmeric Cabbage', 'Beetroot', 'Injera']
+  },
+
+  // --- MAIN COURSES & GRILLS ---
+  {
+    id: 'main-1',
+    category: 'Main Courses',
+    name: 'Prime Grilled Beef Tenderloin Medallion',
+    description: 'Center-cut aged highland beef tenderloin grilled to your liking with green peppercorn demi-glace, silky truffle potato purée, and butter-glazed baby asparagus.',
+    priceETB: 1100,
+    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+    prepTime: '18 min',
+    calories: '760 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Prime Cut', 'Gluten-Free'],
+    ingredients: ['250g Prime Beef Tenderloin', 'Truffle Potato Purée', 'Green Peppercorn Demi-Glace', 'Baby Asparagus', 'Herb Butter']
+  },
+  {
+    id: 'main-2',
+    category: 'Main Courses',
+    name: 'Pan-Seared Lake Tana Tilapia Fillet',
+    description: 'Fresh wild-caught tilapia fillet with crisp golden skin, served over creamy saffron risotto, charred broccolini, and a bright lemon-caper beurre blanc.',
+    priceETB: 920,
+    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80',
+    prepTime: '14 min',
+    calories: '540 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Fresh Wild Fish', 'Gluten-Free'],
+    ingredients: ['Lake Tana Tilapia', 'Saffron Risotto', 'Broccolini', 'Lemon Caper Beurre Blanc', 'Microgreens']
+  },
+  {
+    id: 'main-3',
+    category: 'Main Courses',
+    name: 'Wild Mushroom Truffle Tagliatelle',
+    description: 'Fresh hand-made egg tagliatelle tossed with sautéed porcini and chanterelle mushrooms, white truffle cream sauce, garlic crisps, and freshly grated Parmigiano.',
+    priceETB: 840,
+    imageUrl: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80',
+    prepTime: '13 min',
+    calories: '610 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Vegetarian', 'Handmade Pasta', 'Truffle'],
+    ingredients: ['Fresh Tagliatelle', 'Wild Porcini', 'Chanterelles', 'Truffle Cream', 'Parmigiano-Reggiano', 'Parsley']
+  },
+  {
+    id: 'main-4',
+    category: 'Main Courses',
+    name: 'Herb-Crusted Highland Lamb Chops',
+    description: 'Trio of tender pan-roasted lamb cutlets coated with rosemary-garlic brioche crust, paired with mint pea purée and roasted garlic roasted fingerling potatoes.',
+    priceETB: 1150,
+    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+    prepTime: '17 min',
+    calories: '820 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Highland Lamb', 'Chef Cut'],
+    ingredients: ['Highland Lamb Chops', 'Fresh Rosemary Crust', 'Mint Pea Purée', 'Fingerling Potatoes', 'Red Wine Reduction']
+  },
+  {
+    id: 'main-5',
+    category: 'Main Courses',
+    name: 'Grilled Rosemary & Lemon Chicken Supreme',
+    description: 'Bone-in tender roasted chicken breast with crispy skin, thyme roasted baby vegetables, fondant potatoes, and natural pan-roast jus.',
+    priceETB: 780,
+    imageUrl: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80',
+    prepTime: '15 min',
+    calories: '580 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Lean Protein', 'Gluten-Free'],
+    ingredients: ['Chicken Supreme', 'Fresh Thyme & Rosemary', 'Fondant Potatoes', 'Glazed Carrots', 'Natural Poultry Jus']
+  },
+
+  // --- DESSERTS ---
+  {
+    id: 'dessert-1',
+    category: 'Desserts',
+    name: 'Warm Valrhona Chocolate Lava Cake',
+    description: 'Warm molten 70% dark chocolate fondant with a liquid center, dusted with Dutch cocoa and served with artisanal vanilla bean gelato and raspberry coulis.',
+    priceETB: 450,
+    imageUrl: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80',
+    prepTime: '10 min',
+    calories: '520 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Molten Core'],
+    ingredients: ['70% Valrhona Dark Chocolate', 'Vanilla Bean Gelato', 'Organic Butter', 'Raspberry Coulis', 'Mint Sprig']
+  },
+  {
+    id: 'dessert-2',
+    category: 'Desserts',
+    name: 'Classic Tahitian Vanilla Crème Brûlée',
+    description: 'Silky smooth baked egg yolk custard infused with fragrant Tahitian vanilla beans, topped with a crisp caramelized glass sugar crust.',
+    priceETB: 420,
+    imageUrl: 'https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?auto=format&fit=crop&w=800&q=80',
+    prepTime: '6 min',
+    calories: '410 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['French Classic', 'Gluten-Free'],
+    ingredients: ['Tahitian Vanilla Beans', 'Heavy Cream', 'Egg Yolks', 'Caramelized Raw Sugar']
+  },
+  {
+    id: 'dessert-3',
+    category: 'Desserts',
+    name: 'Ethiopian Spiced Honey Pistachio Baklava',
+    description: 'Crispy layers of flaky golden phyllo pastry stacked with crushed roasted pistachios, walnuts, and drizzled with organic highland honey infused with cardamom.',
+    priceETB: 390,
+    imageUrl: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '360 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Highland Honey', 'Crisp Phyllo'],
+    ingredients: ['Phyllo Dough', 'Roasted Pistachios', 'Walnuts', 'Organic Highland Honey', 'Cardamom Essence']
+  },
+  {
+    id: 'dessert-4',
+    category: 'Desserts',
+    name: 'Artisanal Single-Origin Espresso Tiramisu',
+    description: 'Airy Savoiardi ladyfingers soaked in freshly pulled Yirgacheffe espresso and coffee liqueur, layered with velvety whipped mascarpone and dark cocoa powder.',
+    priceETB: 440,
+    imageUrl: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80',
+    prepTime: '6 min',
+    calories: '460 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Yirgacheffe Infused'],
+    ingredients: ['Italian Mascarpone', 'Yirgacheffe Espresso', 'Savoiardi Ladyfingers', 'Dark Cocoa Powder', 'Organic Eggs']
+  },
+
+  // --- BEVERAGES & SPECIALTY COFFEE ---
+  {
+    id: 'bev-1',
+    category: 'Beverages',
+    name: 'Traditional Ethiopian Coffee Ceremony Pot',
+    description: 'Freshly pan-roasted green coffee beans ground and brewed in a traditional clay Jebena over glowing embers, served with fragrant frankincense smoke and complimentary popcorn.',
+    priceETB: 240,
+    imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80',
+    prepTime: '15 min',
+    calories: '20 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', 'Authentic Ritual', 'Organic'],
+    ingredients: ['Highland Green Coffee Beans', 'Clay Jebena Brew', 'Frankincense', 'Fresh Popcorn']
+  },
+  {
+    id: 'bev-2',
+    category: 'Beverages',
+    name: 'Single-Origin Yirgacheffe V60 Pour-Over',
+    description: 'Artisanal hand-poured single-origin Arabica coffee exhibiting bright jasmine floral aromas, citrus bergamot notes, and a silky smooth winey finish.',
+    priceETB: 180,
+    imageUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80',
+    prepTime: '5 min',
+    calories: '10 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Specialty Grade', 'Light Roast'],
+    ingredients: ['100% Grade 1 Yirgacheffe Coffee', 'Filtered Mineral Water']
+  },
+  {
+    id: 'bev-3',
+    category: 'Beverages',
+    name: 'Layered Fresh Avocado Mango Papaya Juice',
+    description: 'Thick velvety layers of pure fresh avocado, ripe mango, and sweet papaya juice served with a squeeze of fresh lime in a tall chilled glass.',
+    priceETB: 260,
+    imageUrl: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=80',
+    prepTime: '6 min',
+    calories: '190 kcal',
+    isChefSpecial: true,
+    isAvailable: true,
+    dietary: ['Chef Recommendation', '100% Pure Fruit', 'No Added Sugar'],
+    ingredients: ['Fresh Hass Avocado', 'Ripe Mango Puree', 'Tropical Papaya', 'Fresh Lime Juice']
+  },
+  {
+    id: 'bev-4',
+    category: 'Beverages',
+    name: 'Iced Madagascar Vanilla Oat Latte',
+    description: 'Double shot of rich espresso poured over chilled organic oat milk, infused with natural Madagascar vanilla syrup and served over crystal ice cubes.',
+    priceETB: 220,
+    imageUrl: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=800&q=80',
+    prepTime: '4 min',
+    calories: '140 kcal',
+    isChefSpecial: false,
+    isAvailable: true,
+    dietary: ['Dairy-Free', 'Organic Oat Milk'],
+    ingredients: ['Double Espresso Shot', 'Organic Oat Milk', 'Madagascar Vanilla Extract', 'Crystal Ice']
+  }
+];
+
+export const INITIAL_GALLERY: GalleryItem[] = [
+  // Subcategory: Rooms
+  {
+    id: 'gal-1',
+    title: 'Eldad Addis Architectural Facade',
+    category: 'Rooms',
+    imageUrl: ASSET_IMAGES.hero,
+    caption: 'Modern luxury stone facade with glowing lobby and manicured landscaping in central Addis Ababa.',
+  },
+  {
+    id: 'gal-2',
+    title: 'Presidential Suite Living Salon & Vista',
+    category: 'Rooms',
+    imageUrl: ASSET_IMAGES.presidentialSuite,
+    caption: 'Master bedroom with floor-to-ceiling panoramic views of the Addis Ababa skyline.',
+  },
+  {
+    id: 'gal-3',
+    title: 'Deluxe Room King Enclave',
+    category: 'Rooms',
+    imageUrl: ASSET_IMAGES.deluxeRoom,
+    caption: 'Natural oak fluted headboard and lounge corner in the Deluxe King Room.',
+  },
+  {
+    id: 'gal-4',
+    title: 'Twin Room Bespoke Single Beds',
+    category: 'Rooms',
+    imageUrl: ASSET_IMAGES.twinRoom,
+    caption: 'Two separate tailored single beds with designer lamps and acoustic glazing.',
+  },
+  {
+    id: 'gal-5',
+    title: 'Standard Room Queen Sanctuary',
+    category: 'Rooms',
+    imageUrl: ASSET_IMAGES.standardRoom,
+    caption: 'Understated luxury with Queen bed, executive workstation, and warm timber accents.',
+  },
+
+  // Subcategory: Restaurant & Breakfast
+  {
+    id: 'gal-7',
+    title: 'Restaurant & Artisanal Dining Room',
+    category: 'Restaurant & Breakfast',
+    imageUrl: ASSET_IMAGES.restaurant,
+    caption: 'Intimate dining atmosphere serving buffet breakfast and curated dinner selections.',
+  },
+  {
+    id: 'gal-7b',
+    title: 'Artisanal Morning Buffet & Pastry Spread',
+    category: 'Restaurant & Breakfast',
+    imageUrl: ASSET_IMAGES.breakfastBuffet,
+    caption: 'Sunlit breakfast buffet presenting tropical fruits, organic Ethiopian honey, and fresh artisanal pastries.',
+  },
+  {
+    id: 'gal-7c',
+    title: 'Traditional Ethiopian Coffee Ceremony Lounge',
+    category: 'Restaurant & Breakfast',
+    imageUrl: ASSET_IMAGES.coffeeCeremony,
+    caption: 'Ancient Ethiopian coffee ritual brewed in a clay jebena with smoking frankincense.',
+  },
+
+  // Subcategory: Spa & Wellness
+  {
+    id: 'gal-6',
+    title: 'Signature Spa & Cedar Sauna Sanctuary',
+    category: 'Spa & Wellness',
+    imageUrl: ASSET_IMAGES.spaSanctuary,
+    caption: 'Serene thermal bathing sanctuary designed to rejuvenate high-altitude travelers.',
+  },
+  {
+    id: 'gal-6b',
+    title: 'Private Botanical Massage & Treatment Enclave',
+    category: 'Spa & Wellness',
+    imageUrl: ASSET_IMAGES.spaTreatment,
+    caption: 'Bespoke bodywork and skin rituals using indigenous cold-pressed sesame and black cumin oils.',
+  },
+
+  // Subcategory: Sauna & Steam
+  {
+    id: 'gal-8',
+    title: 'Cedar Wood Sauna Thermal Suite',
+    category: 'Sauna & Steam',
+    imageUrl: ASSET_IMAGES.cedarSauna,
+    caption: 'Hand-fitted aromatic Finnish cedar wood heated to therapeutic dry temperatures (80°C–90°C).',
+  },
+  {
+    id: 'gal-8b',
+    title: 'Eucalyptus Botanical Steam Vapor Chamber',
+    category: 'Sauna & Steam',
+    imageUrl: ASSET_IMAGES.steamRoom,
+    caption: 'Dense 100% relative humidity eucalyptus mist to soothe respiration in Addis Ababa mountain climate.',
+  },
+
+  // Subcategory: Gym
+  {
+    id: 'gal-9',
+    title: 'State-of-the-Art Fitness Gym & Cardio Studio',
+    category: 'Gym',
+    imageUrl: ASSET_IMAGES.fitnessGym,
+    caption: 'Air-conditioned cardiovascular studio with high-performance treadmills and cross-trainers.',
+  },
+  {
+    id: 'gal-9b',
+    title: 'Precision Free Weights & Strength Conditioning Zone',
+    category: 'Gym',
+    imageUrl: ASSET_IMAGES.gymWeights,
+    caption: 'Full-spectrum dumbbell racks, kettlebells, and core conditioning mats maintained 24/7.',
+  },
+
+  // Subcategory: Addis Ababa
+  {
+    id: 'gal-10',
+    title: 'Historic Derg Monument Plaza',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.dergMonument,
+    caption: 'The landmark Tiglachin (Derg) Monument, located approximately 700m from Eldad Addis Hotel.',
+  },
+  {
+    id: 'gal-10b',
+    title: 'National Palace & Imperial Diplomatic Gardens',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.addisLandmark,
+    caption: 'Historic presidential palace gates and jacaranda-shaded gardens approximately 1.2km away.',
+  },
+  {
+    id: 'gal-10c',
+    title: 'Addis Ababa Museum at Meskel Square',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.addisAbabaMuseum,
+    caption: '19th-century Ras Birru stone palace showcasing the cultural history of Ethiopia’s capital.',
+  },
+  {
+    id: 'gal-10d',
+    title: 'UN Conference Centre (ECA)',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.unConferenceCentre,
+    caption: 'The United Nations Economic Commission for Africa architectural diplomatic complex.',
+  },
+  {
+    id: 'gal-10e',
+    title: 'National Archives & Library (Wemezekir)',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.nationalArchives,
+    caption: 'Stately academic repository of ancient manuscripts and national literature.',
+  },
+  {
+    id: 'gal-10f',
+    title: 'Yidnekachew Tessema Stadium',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.ydnekachewStadium,
+    caption: 'Addis Ababa historic national multisport arena and football stadium.',
+  },
+  {
+    id: 'gal-10g',
+    title: 'Tewodros Square & Lion of Judah',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.tewodrosSquare,
+    caption: 'Iconic civic monument and bronze Lion of Judah along Churchill Avenue.',
+  },
+  {
+    id: 'gal-10h',
+    title: 'Historic Old Train Station (La Gare)',
+    category: 'Addis Ababa',
+    imageUrl: ASSET_IMAGES.laGareStation,
+    caption: 'Franco-Ethiopian colonial railway terminal at the terminus of Churchill Avenue.',
+  }
+];
+
+export const INITIAL_ATTRACTIONS: Attraction[] = [
+  {
+    id: 'att-1',
+    name: 'Derg Monument',
+    distance: 'Approx. 700m',
+    description: 'Historic monument commemorating a pivotal era in modern Ethiopian history, located within an easy walk from the hotel entrance.',
+    imageUrl: ASSET_IMAGES.dergMonument,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tiglachin+Monument+Churchill+Ave+Addis+Ababa+Ethiopia',
+    address: 'Churchill Ave, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-2',
+    name: 'National Palace',
+    distance: 'Approx. 1.2km',
+    description: 'The historic presidential residence featuring grand architecture, manicured botanical gardens, and regal state pavilions.',
+    imageUrl: ASSET_IMAGES.addisLandmark,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=National+Palace+Menelik+II+Ave+Addis+Ababa+Ethiopia',
+    address: 'Menelik II Ave, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-3',
+    name: 'Addis Ababa Museum',
+    distance: 'Approx. 2.1km',
+    description: 'Dedicated to the architectural, cultural, and political evolution of Ethiopia’s capital since its 19th-century founding.',
+    imageUrl: ASSET_IMAGES.addisAbabaMuseum,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Addis+Ababa+Museum+Meskel+Square+Addis+Ababa+Ethiopia',
+    address: 'Meskel Square, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-4',
+    name: 'UN Conference Centre (ECA)',
+    distance: 'Approx. 2.4km',
+    description: 'A major international diplomatic hub hosting continental summits and the United Nations Economic Commission for Africa.',
+    imageUrl: ASSET_IMAGES.unConferenceCentre,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=United+Nations+Conference+Centre+ECA+Menelik+II+Ave+Addis+Ababa+Ethiopia',
+    address: 'Menelik II Ave, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-5',
+    name: 'National Archives & Library',
+    distance: 'Approx. 1.8km',
+    description: 'The intellectual guardian of ancient manuscripts, Geez liturgical texts, and national literary archives.',
+    imageUrl: ASSET_IMAGES.nationalArchives,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=National+Archives+and+Library+of+Ethiopia+Wemezekir+Addis+Ababa+Ethiopia',
+    address: 'Chad St, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-6',
+    name: 'Ydnekachew Tesema Stadium',
+    distance: 'Approx. 1.6km',
+    description: 'Addis Ababa’s historic multisport stadium, pulsating with national sporting events and community gatherings.',
+    imageUrl: ASSET_IMAGES.ydnekachewStadium,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Addis+Ababa+Stadium+Yidnekachew+Tessema+Stadium+Addis+Ababa+Ethiopia',
+    address: 'Meskel Square / Stadium, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-7',
+    name: 'Tewodros Square & Lion of Judah',
+    distance: 'Approx. 2.8km',
+    description: 'Symbolic civic monument in central Addis Ababa celebrating sovereign Ethiopian heritage and historical triumphs.',
+    imageUrl: ASSET_IMAGES.tewodrosSquare,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tewodros+Square+Churchill+Ave+Lion+of+Judah+Addis+Ababa+Ethiopia',
+    address: 'Churchill Ave, Addis Ababa, Ethiopia',
+  },
+  {
+    id: 'att-8',
+    name: 'Old Train Station / La Gare',
+    distance: 'Approx. 2.2km',
+    description: 'Franco-Ethiopian historic railway terminal, an iconic landmark anchoring the lively railway district.',
+    imageUrl: ASSET_IMAGES.laGareStation,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=La+Gare+Train+Station+Churchill+Ave+Addis+Ababa+Ethiopia',
+    address: 'La Gare, Churchill Ave, Addis Ababa, Ethiopia',
+  }
+];
+
+export const INITIAL_POLICIES: HotelPolicy[] = [
+  {
+    id: 'pol-1',
+    title: 'Check-In & Check-Out Schedule',
+    category: 'check_in_out',
+    content: 'Check-in begins promptly at 12:00 PM. Check-out is scheduled by 12:00 PM. Early check-in or late check-out requests are subject to room availability and front desk coordination.'
+  },
+  {
+    id: 'pol-2',
+    title: 'Spa & Sauna Access Policy',
+    category: 'wellness',
+    content: 'All booked hotel guests enjoy complimentary, unlimited access to the Signature Spa, Cedar Sauna, Steam Room, and Fitness Gym. For non-resident walk-in visitors, day access to the spa and sauna is available at 1,600 ETB.'
+  },
+  {
+    id: 'pol-3',
+    title: 'Non-Smoking Environment',
+    category: 'general',
+    content: 'Eldad Addis Hotel & Spa maintains a strict non-smoking policy across all 25 guest rooms, corridors, restaurant, and wellness facilities to ensure fresh mountain air and pristine comfort for all guests.'
+  },
+  {
+    id: 'pol-4',
+    title: 'Guest Identification Requirements',
+    category: 'check_in_out',
+    content: 'Valid government-issued identification or passport, along with FAN / FIN registration, is required for all adult guests at the front desk upon check-in.'
+  },
+  {
+    id: 'pol-5',
+    title: 'Airport Transfer Service',
+    category: 'general',
+    content: 'Dedicated transfer between Addis Ababa Bole International Airport and the hotel is available 24 hours daily. Please provide your flight number and estimated arrival time during reservation or to the front desk.'
+  },
+  {
+    id: 'pol-6',
+    title: 'Parking & High-Speed Wi-Fi',
+    category: 'general',
+    content: 'Complimentary private, secure on-site parking is available for resident guests. High-speed optical Wi-Fi is provided without charge throughout all guest rooms and public hotel areas.'
+  }
+];

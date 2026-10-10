@@ -1,0 +1,6 @@
+{
+  "name": "Eldad Addis Hotel & Spa",
+  "description": "Modern luxury hotel and wellness retreat in the heart of Addis Ababa, Ethiopia. 25 guest rooms, full-service spa, sauna, and restaurant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
